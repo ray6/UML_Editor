@@ -1,48 +1,81 @@
 package UMLeditor;
-import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 
-public class UI{
-    JFrame frame;
-    JButton b_file, b_edit;
-    JButton b_select, b_assline, b_genline, b_comline, b_class, b_usercase;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
-    UI(){
-        frame = new JFrame("UML Editor");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+public class UI extends  JFrame{
+    private Canvas mycanvas = new Canvas();
+    private JMenuBar jmb;
+    private JMenu file = new JMenu("File");
+    private JMenu edit = new JMenu("Edit");
+    private JMenuItem [] file_item = new JMenuItem[3];//選單1
+    private JMenuItem [] edit_item = new JMenuItem[3];//選單2
+    private JButton[] btns = new JButton[6];
 
-        b_file = new JButton("File");
-        b_edit = new JButton("Edit");
-        b_file.setBounds(0,0,20, 10);
-        b_edit.setBounds(20,0,20, 10);
+    public UI(){
+        init();
+        initMenu();
+        initButton();
 
-        b_select = new JButton(new ImageIcon("/Users/RayLiu/IdeaProjects/OOOO/img/rabbit.png"));
-        b_assline= new JButton(new ImageIcon("/Users/RayLiu/IdeaProjects/OOOO/img/rabbit.png"));
-        b_genline = new JButton(new ImageIcon("/Users/RayLiu/IdeaProjects/OOOO/img/rabbit.png"));
-        b_comline = new JButton(new ImageIcon("/Users/RayLiu/IdeaProjects/OOOO/img/rabbit.png"));
-        b_class = new JButton(new ImageIcon("/Users/RayLiu/IdeaProjects/OOOO/img/rabbit.png"));
-        b_usercase = new JButton(new ImageIcon("/Users/RayLiu/IdeaProjects/OOOO/img/rabbit.png"));
-        b_select.setBounds(0,10, 50, 50);
-        b_assline.setBounds(0,60, 50, 50);
-        b_genline.setBounds(0,110, 50, 50);
-        b_comline.setBounds(0,170, 50, 50);
-        b_class.setBounds(0,220, 50, 50);
-        b_usercase.setBounds(0,270, 50, 50);
+    }
+    private void init() {
+        // TODO Auto-generated method stub
+        this.setLayout(null);
+        this.add(mycanvas);
+        this.setSize(1000,600);
+        this.setLocation(50,10);
+        this.setResizable(false);//視窗放大按鈕無效
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    private void initMenu() {
+        // TODO Auto-generated method stub
+        jmb = new JMenuBar();
+        this.setJMenuBar(jmb); //加入工具列
+        //遊戲的選擇項目
+        jmb.add(file);
+        file_item[0] = new JMenuItem("1");
+        file_item[1] = new JMenuItem("2");
+        file.add(file_item[0]);
+        file.add(file_item[1]);
+        //關於的選擇項目
+        jmb.add(edit);
+        edit_item[0] = new JMenuItem("change object name");
+        edit_item[1] = new JMenuItem("group");
+        edit_item[2] = new JMenuItem("ungroup");
+        edit.add(edit_item[0]);
+        edit.add(edit_item[1]);
+        edit.add(edit_item[2]);
 
-        frame.add(b_file);
-        frame.add(b_edit);
-        frame.add(b_select);
-        frame.add(b_assline);
-        frame.add(b_genline);
-        frame.add(b_comline);
-        frame.add(b_class);
-        frame.add(b_usercase);
+    }
+    private void initButton() {
+        // TODO Auto-generated method stub
+        int totaly=5;
+        for(int i=0;i<=5;i++)
+        {
+            btns[i]=new JButton();
+            Icon imgicon = new ImageIcon("res/"+String.valueOf(i+1)+".png");
+            btns[i].setIcon(imgicon);
+            this.add(btns[i]);
+            btns[i].setBounds(10, totaly, 50, 50);
+            totaly=totaly+65;
 
-        frame.setLayout(null);
-        frame.setSize(300, 300);
-        frame.setVisible(true);
+        }
     }
 
     public static void main(String[] args) {
         new UI();
     }
 }
+
