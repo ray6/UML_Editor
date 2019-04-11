@@ -8,18 +8,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MyCanvas extends JPanel implements KeyListener, MouseListener{
-    Canvas c;
-    JTextField tf;
-    String s;
+    private Canvas c;
+    private JTextField tf;
+    private String s;
     public MyCanvas(){
+        setBackground(Color.white);
         c = new Canvas();
         tf = new JTextField();
         c.addKeyListener(this);
         c.addMouseListener(this);
-
-        add(c);
-        add(tf);
-
+        setLayout(new BorderLayout());
+        add(c, BorderLayout.CENTER);
+        add(tf, BorderLayout.SOUTH);
 
     }
 
