@@ -1,6 +1,7 @@
-package UMLeditor;
+package SwingSample;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 public class UI extends JFrame {
@@ -62,8 +63,8 @@ public class UI extends JFrame {
             p.add(buttons[i]);
         }
         add(p, BorderLayout.WEST);
-        p = new MyCanvas();
-        add(p, BorderLayout.CENTER);
+        p = new myCanvas();
+        add(p, BorderLayout.EAST);
 
     }
 
@@ -73,3 +74,11 @@ public class UI extends JFrame {
     }
 }
 
+class myCanvas extends JPanel{
+    public Canvas c;
+    myCanvas(){
+        c = new Canvas();
+        add(c);
+    }
+
+}
