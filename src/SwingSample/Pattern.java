@@ -1,6 +1,7 @@
-package UMLeditor;
+package SwingSample;
+import UMLeditor.Port;
+
 import javax.swing.*;
-import java.awt.*;
 
 public class Pattern extends JPanel{
 
