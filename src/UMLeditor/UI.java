@@ -63,7 +63,7 @@ public class UI extends JFrame {
            0 : Select,  1 : Association Line, 2 : Generalization Line
            3 : Composition Line,  4 : class,  5 : Use Case
         */
-        String img_path = "C:\\Users\\ray\\IdeaProjects\\OOOO\\img\\";
+        final String img_path = "C:\\Users\\ray\\IdeaProjects\\OOOO\\img\\";
         String [] img = {"arrow.png", "Line.png", "gen.png", "comp.png", "class.png", "use.png"};
         Border emborder = BorderFactory.createEmptyBorder();
         for(int i =0; i<6; i++){
@@ -111,9 +111,7 @@ public class UI extends JFrame {
                 canvas.revalidate();
                 canvas.repaint();
 //                addComponentToPane();
-                canvas.add(c);
-                c.repaint(e.getX(), e.getY())
-
+//                canvas.add(c);
 
             }
         });
