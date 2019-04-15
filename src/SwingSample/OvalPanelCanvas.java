@@ -1,8 +1,7 @@
 package SwingSample;
-import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class OvalPanelCanvas extends JPanel {
     public OvalPanelCanvas() {

@@ -21,6 +21,4 @@ public class Pattern extends JPanel{
     }
 
 }
-class Port{
-    protected Pattern Link;
-}
+

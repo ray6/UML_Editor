@@ -1,17 +1,10 @@
 package SwingSample;
-import javax.swing.SwingUtilities;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
+
 public class SwingDemo3 {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -31,6 +24,7 @@ public class SwingDemo3 {
         f.setVisible(true);
     }
 }
+
 class MyPanel extends JPanel{
     private int squareX = 50;
     private int squareY = 50;
@@ -55,10 +49,10 @@ class MyPanel extends JPanel{
     private void moveSquare(int x, int y){
         int OFFSET = 1;
         if ((squareX!=x) || squareY!=y){
-            repaint(squareX, squareY, squareW+OFFSET, squareH+OFFSET);
+            repaint();
             squareX=x;
             squareY=y;
-            repaint(squareX, squareY, squareW+OFFSET, squareH+OFFSET);
+            repaint();
         }
     }
     public Dimension getPreferredSize(){

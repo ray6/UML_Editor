@@ -71,10 +71,10 @@ public class CanvasTest implements KeyListener, MouseListener {
     public void mouseReleased(MouseEvent e) {
         tf.setText("Mouse Release");
     }
-    public void mouseDragged(java.awt.event.MouseEvent e){
+    public void mouseDragged(MouseEvent e){
         tf.setText("mouse Dragged");
     }
-    public void mouseMoved(java.awt.event.MouseEvent e){
+    public void mouseMoved(MouseEvent e){
         tf.setText("mouse Moved");
 
     }
