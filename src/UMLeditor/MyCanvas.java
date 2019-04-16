@@ -2,84 +2,308 @@ package UMLeditor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Vector;
+import BasicObject.BasicObject;
+//import Mode.*;
 
-public class MyCanvas extends JPanel implements KeyListener, MouseListener{
-    private Canvas c;
-    private JTextField tf;
-    private String s;
-    public MyCanvas(){
+public class MyCanvas extends JPanel {
+    private Vector<BasicObject> v = new Vector<BasicObject>();
+    private MouseAdapter[] Modes = new MouseAdapter[7];
+    private int currentMode = 6; //Set to initial Mode : null
+
+    public MyCanvas() {
         setBackground(Color.white);
-        c = new Canvas();
-        tf = new JTextField();
-        c.addKeyListener(this);
-        c.addMouseListener(this);
-        setLayout(new BorderLayout());
-        add(c, BorderLayout.CENTER);
-        add(tf, BorderLayout.SOUTH);
-
+        setPreferredSize(new Dimension(1000, 600));
+        initMode();
     }
 
-    public static void main(String[] args) {
-        MyCanvas mc = new MyCanvas();
-        JFrame f = new JFrame("Canvas");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(mc);
-
-        f.setSize(300, 150);
-        f.setVisible(true);
+    public void ModeSwitcher(int mode){
+        removeMouseListener(Modes[currentMode]);
+        addMouseListener(Modes[mode]);
+        currentMode = mode;
+        repaint();
     }
+    private void initMode(){
+        /*
+        Mode List :
+           0 : Select,  1 : Association Line, 2 : Generalization Line
+           3 : Composition Line,  4 : class,  5 : Use Case,  6 : NULL
+        */
+        MouseAdapter SelectMode = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setBackground(Color.PINK);
+                repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+            }
+        };
+        MouseAdapter AssLineMode = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setBackground(Color.black);
+                repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+            }
+        };
+        MouseAdapter GenLineMode = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setBackground(Color.BLUE);
+                repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+            }
+        };
+        MouseAdapter ComLineMode = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setBackground(Color.CYAN);
+                repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+            }
+        };
+        MouseAdapter ClassMode = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setBackground(Color.ORANGE);
+                repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+            }
+        };
+        MouseAdapter UseCaseMode = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setBackground(Color.GREEN);
+                repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+            }
+        };
+
+        Modes[0] = SelectMode;
+        Modes[1] = AssLineMode;
+        Modes[2] = GenLineMode;
+        Modes[3] = ComLineMode;
+        Modes[4] = ClassMode;
+        Modes[5] = UseCaseMode;
+
+        Modes[6] = null; // In begining there is no Listener.
+    }
+
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        tf.setText("key pressed");
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        tf.setText("key released");
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        tf.setText("Key Typed");
-        s += e.getKeyChar();
-        c.getGraphics().drawString(s, 0, 20);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        tf.setText("Mouse Clicked");
-        c.requestFocus();
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        tf.setText("Mouse Entered");
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        tf.setText("Mouse Exited");
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        tf.setText("Mouse Pressed");
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        tf.setText("Mouse Release");
-    }
-    public void mouseDragged(java.awt.event.MouseEvent e){
-        tf.setText("mouse Dragged");
-    }
-    public void mouseMoved(java.awt.event.MouseEvent e){
-        tf.setText("mouse Moved");
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (!v.isEmpty()){
+            for (int i=0;i < v.size(); i++){
+                v.get(i).draw(g);
+            }
+        }
 
     }
+
 }
