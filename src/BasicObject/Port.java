@@ -1,4 +1,4 @@
-package UMLeditor;
+package BasicObject;
 
 public class Port {
 }
