@@ -1,5 +1,5 @@
 package SwingSample;
-import UMLeditor.Port;
+import BasicObject.Port;
 
 import javax.swing.*;
 
