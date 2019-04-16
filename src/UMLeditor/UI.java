@@ -1,6 +1,6 @@
 package UMLeditor;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+import BasicObject.Class;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,13 +11,14 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class UI extends JFrame {
-    private JPanel canvas;
+    private MyCanvas canvas;
     private  JMenuBar jmb;
     private JMenu file;
     private  JMenu edit;
     private JMenuItem [] file_item = new JMenuItem[2];
     private  JMenuItem [] edit_item = new JMenuItem[3];
     private  JButton [] buttons = new JButton[6];
+    private Icon [][] icons = new ImageIcon[6][2];
     private int ModeNO;
 
 
@@ -26,11 +27,10 @@ public class UI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        canvas = new JPanel();
-        canvas.setSize(900, 600);
-        canvas.setBackground(Color.BLUE);
+        canvas = new MyCanvas();
 
         initMenu();
+        initIcon();
         initButton();
         addComponentToPane();
         showGUI();
@@ -57,27 +57,32 @@ public class UI extends JFrame {
         edit.add(edit_item[2]);
 
     }
+    private void initIcon(){
+        String img_path = "C:\\Users\\ray\\IdeaProjects\\OOOO\\img\\";
+        String [] img = {"arrow", "Line", "gen", "comp", "class", "use"};
+        for (int i =0; i < 6; i++){
+            icons[i][0]  = new ImageIcon(img_path+img[i]+".png");
+            icons[i][1]  = new ImageIcon(img_path+img[i]+"_R.png");
+        }
+    }
     private void initButton(){
         /*
         Button List :
            0 : Select,  1 : Association Line, 2 : Generalization Line
            3 : Composition Line,  4 : class,  5 : Use Case
         */
-        final String img_path = "C:\\Users\\ray\\IdeaProjects\\OOOO\\img\\";
-        String [] img = {"arrow.png", "Line.png", "gen.png", "comp.png", "class.png", "use.png"};
         Border emborder = BorderFactory.createEmptyBorder();
         for(int i =0; i<6; i++){
-            buttons[i] = new JButton(new ImageIcon(img_path+img[i]));
+            buttons[i] = new JButton(icons[i][0]);
             buttons[i].setBackground(Color.white);
             buttons[i].setBorder(emborder);
         }
-        buttons[4].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buttons[4].setIcon(new ImageIcon(img_path+"class_R.png"));
-                ClassMode();
-            }
-        });
+        AddSelectListener();
+        AddASSListener();
+        AddGENListener();
+        AddCOMListener();
+        AddClassListener();
+        AddUseCaseListener();
     }
     private void addComponentToPane(){
 
@@ -97,24 +102,77 @@ public class UI extends JFrame {
         setVisible(true);
     }
 
-    private void ClassMode(){
-//        canvas.removeMouseListener();
-        canvas.addMouseListener(new MouseAdapter() {
+    private void AddSelectListener() {
+        //button[0] is SelectMode
+        buttons[0].addActionListener(new ActionListener() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                Class c = new Class();
-                //c.setBounds(e.getX(), e.getY(), 80, 100);
-//                c.setLocation(e.getX(), e.getY());
-                System.out.println("X : " + e.getX() + "\nY :" + e.getY());
-//                canvas.add(c);
-                canvas.removeAll();
-                canvas.revalidate();
-                canvas.repaint();
-//                addComponentToPane();
-//                canvas.add(c);
-
+            public void actionPerformed(ActionEvent e) {
+                switchIcon(0);
+                canvas.ModeSwitcher(0);
             }
         });
+    }
+    private void AddASSListener(){
+        //button[1] is Association Line Mode
+        buttons[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchIcon(1);
+                canvas.ModeSwitcher(1);
+            }
+        });
+    }
+    private void AddGENListener(){
+        //button[2] is Generalization Line Mode
+        buttons[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchIcon(2);
+                canvas.ModeSwitcher(2);
+            }
+        });
+    }
+    private void AddCOMListener(){
+        //button[3] is Composition Line
+        buttons[3].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchIcon(3);
+                canvas.ModeSwitcher(3);
+            }
+        });
+    }
+    private void AddClassListener(){
+        //button[4] is ClassMode
+        buttons[4].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchIcon(4);
+                canvas.ModeSwitcher(4);
+            }
+        });
+    }
+    private void AddUseCaseListener(){
+        //button[5] is Use Case Mode
+        buttons[5].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchIcon(5);
+                canvas.ModeSwitcher(5);
+            }
+        });
+        buttons[5].addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setBackground(Color.BLUE);
+            }
+        });
+    }
+
+    private void switchIcon(int no){
+        for (int i =0; i<6;i++){
+            buttons[i].setIcon(icons[i][i==no ? 1 : 0]);
+        }
     }
 
 
