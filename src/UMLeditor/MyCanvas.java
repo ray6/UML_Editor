@@ -6,10 +6,12 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Vector;
 import BasicObject.BasicObject;
+import BasicObject.Class;
+import BasicObject.UseCase;
 //import Mode.*;
 
 public class MyCanvas extends JPanel {
-    private Vector<BasicObject> v = new Vector<BasicObject>();
+    private Vector<BasicObject> ComponentList = new Vector<BasicObject>();
     private MouseAdapter[] Modes = new MouseAdapter[7];
     private int currentMode = 6; //Set to initial Mode : null
 
@@ -202,7 +204,7 @@ public class MyCanvas extends JPanel {
         MouseAdapter ClassMode = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setBackground(Color.ORANGE);
+                ComponentList.add(new Class(e.getX(), e.getY()));
                 repaint();
             }
 
@@ -244,7 +246,7 @@ public class MyCanvas extends JPanel {
         MouseAdapter UseCaseMode = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setBackground(Color.GREEN);
+                ComponentList.add(new UseCase(e.getX(), e.getY()));
                 repaint();
             }
 
@@ -298,9 +300,9 @@ public class MyCanvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (!v.isEmpty()){
-            for (int i=0;i < v.size(); i++){
-                v.get(i).draw(g);
+        if (!ComponentList.isEmpty()){
+            for (int i=0;i < ComponentList.size(); i++){
+                ComponentList.get(i).draw(g);
             }
         }
 
