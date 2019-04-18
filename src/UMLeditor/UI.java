@@ -60,10 +60,13 @@ public class UI extends JFrame {
     private void initIcon(){
         String img_path = "C:\\Users\\ray\\IdeaProjects\\OOOO\\img\\";
         String [] img = {"arrow", "Line", "gen", "comp", "class", "use"};
+
         for (int i =0; i < 6; i++){
             icons[i][0]  = new ImageIcon(img_path+img[i]+".png");
             icons[i][1]  = new ImageIcon(img_path+img[i]+"_R.png");
         }
+//        Image cc = Toolkit.getDefaultToolkit().getImage(img_path+img[0]+".png");
+//        setIconImage(cc);
     }
     private void initButton(){
         /*
