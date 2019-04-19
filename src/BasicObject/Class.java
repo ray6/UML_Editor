@@ -2,7 +2,7 @@ package BasicObject;
 
 import java.awt.*;
 
-public class Class extends ShapeObject {
+public class Class extends BasicObject {
 
     public Class(int x, int y){
         super(x, y);

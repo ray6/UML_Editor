@@ -19,9 +19,10 @@ public abstract class ShapeObject extends BasicObject {
     protected Port EAST;
 
     // Status
-    protected boolean selected = true;
+    protected boolean selected = false;
 
     protected ShapeObject(int x, int y){
+        super(x, y);
         X = x;
         Y = y;
 
@@ -37,6 +38,11 @@ public abstract class ShapeObject extends BasicObject {
         EAST.setXY(X, Y+H/2);
         WEST.setXY(X+W, Y+H/2);
     }
+    public int getX(){ return X; }
+    public int getY(){ return Y; }
+    public int getW(){ return W; }
+    public int getH(){ return H; }
+
     public void draw(Graphics g){
         // draw port
         if (selected){

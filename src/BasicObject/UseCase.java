@@ -1,7 +1,7 @@
 package BasicObject;
 import java.awt.*;
 
-public class UseCase extends ShapeObject {
+public class UseCase extends BasicObject {
     public UseCase(int x, int y){
         super(x, y);
         W = 99;
