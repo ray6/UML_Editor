@@ -19,7 +19,6 @@ public class UI extends JFrame {
     private  JMenuItem [] edit_item = new JMenuItem[3];
     private  JButton [] buttons = new JButton[6];
     private Icon [][] icons = new ImageIcon[6][2];
-    private int ModeNO;
 
 
     public UI(){
@@ -162,12 +161,6 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 switchIcon(5);
                 canvas.ModeSwitcher(5);
-            }
-        });
-        buttons[5].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                setBackground(Color.BLUE);
             }
         });
     }
