@@ -16,7 +16,7 @@ public class UI extends JFrame {
     private JMenu file;
     private  JMenu edit;
     private JMenuItem [] file_item = new JMenuItem[2];
-    private  JMenuItem [] edit_item = new JMenuItem[3];
+    private  JMenuItem [] edit_item = new JMenuItem[4];
     private  JButton [] buttons = new JButton[6];
     private Icon [][] icons = new ImageIcon[6][2];
 
@@ -39,13 +39,42 @@ public class UI extends JFrame {
         jmb = new JMenuBar();
 
         file = new JMenu("File");
-        file_item[0] = new JMenuItem("1");
-        file_item[1] = new JMenuItem("2");
+        file_item[0] = new JMenuItem("Save");
+        file_item[1] = new JMenuItem("Close");
 
         edit = new JMenu("Edit");
-        edit_item[0] = new JMenuItem("change object name");
-        edit_item[1] = new JMenuItem("group");
-        edit_item[2] = new JMenuItem("ungroup");
+        edit_item[0] = new JMenuItem("Rename");
+        edit_item[0].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canvas.isSelecting()){
+                    String name = JOptionPane.showInputDialog(
+                            "Rename Object : ", null);
+                    if ( name != null){
+                        canvas.setSelectedName(name);
+                    }
+                }
+            }
+        });
+        edit_item[1] = new JMenuItem("Group");
+        edit_item[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canvas.isSelecting()){
+                    canvas.Group();
+                }
+            }
+        });
+        edit_item[2] = new JMenuItem("Ungroup");
+        edit_item[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canvas.isSelecting()){
+                    canvas.UnGroup();
+                }
+            }
+        });
+        edit_item[3] = new JMenuItem("Clear Canvas");
 
         jmb.add(file);
         jmb.add(edit);
