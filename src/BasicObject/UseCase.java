@@ -7,6 +7,7 @@ public class UseCase extends BasicObject {
         W = 99;
         H = 50;
         name = "Use Case";
+        type = "UseCase";
     }
     @Override
     public void draw(Graphics g){

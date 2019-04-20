@@ -9,11 +9,9 @@ public class Class extends BasicObject {
         W = 80;
         H = 99;
         name = "Class";
+        type = "Class";
     }
-    public void setXY(int x, int y){
-        X = x;
-        Y = y;
-    }
+
     public void setName(String n){
         name = n;
     }
