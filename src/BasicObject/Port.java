@@ -15,8 +15,10 @@ public class Port {
         X = x-W/2;
         Y = y-H/2;
     }
-    public int getCenterX(){ return X+W/2; }
-    public int getCenterY(){ return Y+H/2; }
+
+    public int getX(){ return X+W/2; }
+    public int getY(){ return Y+H/2; }
+
     public void draw(Graphics g){
         g.setColor(Color.black);
         g.fillRect(X, Y, W, H);
