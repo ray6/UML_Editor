@@ -12,6 +12,6 @@ public class AssociationLine extends Line{
     @Override
     public void drawline(Graphics g) {
         g.setColor(Color.black);
-        g.drawLine(Start.getCenterX(), Start.getCenterY(), End.getCenterX(), End.getCenterY());
+        g.drawLine(Start.getX(), Start.getY(), End.getX(), End.getY());
     }
 }

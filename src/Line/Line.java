@@ -11,5 +11,6 @@ public abstract class Line {
         Start = start;
         End = end;
     }
+
     public abstract void drawline(Graphics g);
 }
