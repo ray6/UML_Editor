@@ -40,18 +40,15 @@ public abstract class BasicObject  {
     }
 
     public Port getConnectPort(int x, int y){
+        Port[][] Position = {{North, WEST},{EAST, South}};
         //Set Center(X+W/2, Y+H/2) to origin point (0, 0).
         x = x-X-W/2;
         y = y-Y-H/2;
-        double m = (-(double)H/(double)W*x);
-        if (m > y){
-            if (-m >= y) { return North; }
-            else { return WEST; }
-        }
-        else {
-            if (-m> y) {return EAST; }
-            else {return South; }
-        }
+        double point_on_LDRULine = ((double)H/(double)W)*x; //LeftDownToRighUpLine
+        double point_on_LURDLine = (-point_on_LDRULine); //LeftUpToRightDownline
+
+        return Position[point_on_LURDLine > y ? 0 : 1][point_on_LDRULine > y ? 0 : 1];
+
     }
     public int getX(){ return X; }
     public int getY(){ return Y; }
