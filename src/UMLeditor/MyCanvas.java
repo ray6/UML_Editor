@@ -13,7 +13,11 @@ import Line.Line;
 import Line.AssociationLine;
 import Line.GeneralizationLine;
 import Line.CompositionLine;
+import Mode.*;
 import UMLeditor.selectRec;
+import Mode.AssociationMode;
+import Mode.GeneralizationMode;
+import Mode.CompositionMode;
 
 public class MyCanvas extends JPanel {
     private Vector<BasicObject> ComponentList = new Vector<BasicObject>();
@@ -31,6 +35,43 @@ public class MyCanvas extends JPanel {
         setBackground(Color.white);
         setPreferredSize(new Dimension(1000, 600));
         initMode();
+    }
+    public void AddToComponentList(BasicObject b){
+        ComponentList.add(b);
+        repaint();
+    }
+    public void AddToLineList(Line line){
+        LineList.add(line);
+        repaint();
+    }
+    public BasicObject getComponent(int x, int y){
+        int Xdiff = 0;
+        int Ydiff = 0;
+        BasicObject lastobj = null;
+        if(!ComponentList.isEmpty()) {
+            for (BasicObject obj : ComponentList) {
+                Xdiff = x - obj.getX();
+                Ydiff = y - obj.getY();
+                obj.setSelect(false);
+                if (0 <= Xdiff && Xdiff <= obj.getW() && 0 <= Ydiff && Ydiff <= obj.getH()) {
+                    lastobj = obj;
+                }
+            }
+        }
+        repaint();
+        return lastobj;
+    }
+    public void setL_start(int x, int y){
+        L.setStart(x, y);
+        repaint();
+    }
+    public void setL_end(int x, int y){
+        L.setXY2(x, y);
+        repaint();
+    }
+    public void clearL(){
+        L.setZero();
+        repaint();
     }
 
     private void initMode(){
@@ -175,210 +216,13 @@ public class MyCanvas extends JPanel {
                 return lastobj;
             }
         };
-        MouseAdapter AssLineMode = new MouseAdapter() {
-            BasicObject start_obj, end_obj;
-            Port start_port;
-            private boolean Connecting = false;
-            int X1;
-            int X2;
-            int Y1;
-            int Y2;
-            @Override
-            public void mousePressed(MouseEvent e) {
-                X1 = e.getX();
-                Y1 = e.getY();
-                start_obj = getOBJ(X1, Y1);
-                repaint();
-                if (start_obj!=null){
-                    start_port = start_obj.getConnectPort(X1, Y1);
-                    if (start_port != null){
-                        L.setStart(start_port.getCenterX(), start_port.getCenterY());
-                        repaint();
-                        Connecting = true;
-                    }
-                }
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (Connecting){
-                    Connecting = false;
-                    L.setZero();
-                    repaint();
-                    X2 = e.getX();
-                    Y2 = e.getY();
-                    end_obj = getOBJ(X2, Y2);
-                    if (end_obj!=null && start_obj!=end_obj){
-                        Port end_port = end_obj.getConnectPort(X2, Y2);
-                        if ( end_port!= null){
-                            LineList.add(new AssociationLine(start_port, end_port));
-                        }
-                        repaint();
-                    }
-                }
-            }
-            @Override
-            public void mouseDragged(MouseEvent e){
-                if (Connecting){
-                    L.setXY2(e.getX(), e.getY());
-                    repaint();
-                }
-            }
-            private BasicObject getOBJ(int x, int y){
-                int Xdiff = 0;
-                int Ydiff = 0;
-                BasicObject lastobj = null;
-                if(!ComponentList.isEmpty()) {
-                    for (BasicObject obj : ComponentList) {
-                        Xdiff = x - obj.getX();
-                        Ydiff = y - obj.getY();
-                        obj.setSelect(false);
-                        if (0 <= Xdiff && Xdiff <= obj.getW() && 0 <= Ydiff && Ydiff <= obj.getH()) {
-                            lastobj = obj;
-                        }
-                    }
-                }
-                return lastobj;
-            }
-
-        };
-        MouseAdapter GenLineMode = new MouseAdapter() {
-            BasicObject start_obj, end_obj;
-            private boolean Connecting = false;
-            int X1;
-            int X2;
-            int Y1;
-            int Y2;
-            @Override
-            public void mousePressed(MouseEvent e) {
-                X1 = e.getX();
-                Y1 = e.getY();
-                start_obj = getOBJ(X1, Y1);
-                repaint();
-                if (start_obj!=null){
-                    L.setStart(start_obj.getConnectPort(X1, Y1).getCenterX(), start_obj.getConnectPort(X1, Y1).getCenterY());
-                    repaint();
-                    Connecting = true;
-                }
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (Connecting){
-                    Connecting = false;
-                    L.setZero();
-                    repaint();
-                    X2 = e.getX();
-                    Y2 = e.getY();
-                    end_obj = getOBJ(X2, Y2);
-                    if (end_obj!=null && start_obj!=end_obj){
-                        LineList.add(new GeneralizationLine(start_obj.getConnectPort(X1, Y1), end_obj.getConnectPort(X2, Y2)));
-                        repaint();
-                    }
-                }
-            }
-            @Override
-            public void mouseDragged(MouseEvent e){
-                if (Connecting){
-                    L.setXY2(e.getX(), e.getY());
-                    repaint();
-                }
-            }
-            private BasicObject getOBJ(int x, int y){
-                int Xdiff = 0;
-                int Ydiff = 0;
-                BasicObject lastobj = null;
-                if(!ComponentList.isEmpty()) {
-                    for (BasicObject obj : ComponentList) {
-                        Xdiff = x - obj.getX();
-                        Ydiff = y - obj.getY();
-                        obj.setSelect(false);
-                        if (0 <= Xdiff && Xdiff <= obj.getW() && 0 <= Ydiff && Ydiff <= obj.getH()) {
-                            lastobj = obj;
-                        }
-                    }
-                }
-                return lastobj;
-            }
-
-        };
-        MouseAdapter ComLineMode = new MouseAdapter() {
-            BasicObject start_obj, end_obj;
-            private boolean Connecting = false;
-            int X1;
-            int X2;
-            int Y1;
-            int Y2;
-            @Override
-            public void mousePressed(MouseEvent e) {
-                X1 = e.getX();
-                Y1 = e.getY();
-                start_obj = getOBJ(X1, Y1);
-                repaint();
-                if (start_obj!=null){
-                    L.setStart(start_obj.getConnectPort(X1, Y1).getCenterX(), start_obj.getConnectPort(X1, Y1).getCenterY());
-                    repaint();
-                    Connecting = true;
-                }
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (Connecting){
-                    Connecting = false;
-                    L.setZero();
-                    repaint();
-                    X2 = e.getX();
-                    Y2 = e.getY();
-                    end_obj = getOBJ(X2, Y2);
-                    if (end_obj!=null && start_obj!=end_obj){
-                        LineList.add(new CompositionLine(start_obj.getConnectPort(X1, Y1), end_obj.getConnectPort(X2, Y2)));
-                        repaint();
-                    }
-                }
-            }
-            @Override
-            public void mouseDragged(MouseEvent e){
-                if (Connecting){
-                    L.setXY2(e.getX(), e.getY());
-                    repaint();
-                }
-            }
-            private BasicObject getOBJ(int x, int y){
-                int Xdiff = 0;
-                int Ydiff = 0;
-                BasicObject lastobj = null;
-                if(!ComponentList.isEmpty()) {
-                    for (BasicObject obj : ComponentList) {
-                        Xdiff = x - obj.getX();
-                        Ydiff = y - obj.getY();
-                        obj.setSelect(false);
-                        if (0 <= Xdiff && Xdiff <= obj.getW() && 0 <= Ydiff && Ydiff <= obj.getH()) {
-                            lastobj = obj;
-                        }
-                    }
-                }
-                return lastobj;
-            }
-
-        };
-
-        MouseAdapter ClassMode = new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                ComponentList.add(new Class(e.getX(), e.getY()));
-                repaint();
-            }};
-        MouseAdapter UseCaseMode = new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                ComponentList.add(new UseCase(e.getX(), e.getY()));
-                repaint();
-            }};
-
+        
         Modes[0] = SelectMode;
-        Modes[1] = AssLineMode;
-        Modes[2] = GenLineMode;
-        Modes[3] = ComLineMode;
-        Modes[4] = ClassMode;
-        Modes[5] = UseCaseMode;
+        Modes[1] = new AssociationMode(this);
+        Modes[2] = new GeneralizationMode(this);
+        Modes[3] = new CompositionMode(this);
+        Modes[4] = new ClassMode(this);
+        Modes[5] = new UseCaseMode(this);
 
         Modes[6] = null; // In begining there is no Listener.
     }
