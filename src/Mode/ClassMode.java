@@ -11,7 +11,7 @@ public class ClassMode extends CreateMode {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         canvas.AddToComponentList(new Class(e.getX(), e.getY()));
     }
 }

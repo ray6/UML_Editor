@@ -11,7 +11,7 @@ public class UseCaseMode extends CreateMode {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         canvas.AddToComponentList(new UseCase(e.getX(), e.getY()));
     }
 }
