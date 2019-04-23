@@ -203,7 +203,7 @@ public class MyCanvas extends JPanel {
         int min_X=Integer.MAX_VALUE, min_Y=Integer.MAX_VALUE, max_X=0, max_Y=0;
         if (SelectList.size()>1){
             for (BasicObject obj : SelectList){
-                obj.setGrouped(true);
+
                 if (min_X > obj.getX()){
                     min_X = obj.getX();
                 }

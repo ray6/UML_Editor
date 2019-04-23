@@ -13,7 +13,10 @@ public class Composite extends BasicObject {
         type = "Composite";
         for (BasicObject obj : GroupList){
             obj.setSelect(false);
-            MemberList.add(obj);
+            if (!obj.isGrouped()){
+                MemberList.add(obj);
+                obj.setGrouped(true);
+            }
         }
         this.setSelect(true);
     }

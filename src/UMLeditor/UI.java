@@ -86,8 +86,8 @@ public class UI extends JFrame {
 
     }
     private void initIcon(){
-//        String img_path = "C:\\Users\\ray\\IdeaProjects\\OOOO\\img\\";
-        String img_path = "./img/";
+        String img_path = "C:\\Users\\ray\\IdeaProjects\\OOOO\\img\\";
+//        String img_path = "./img/";
         String [] img = {"arrow", "Line", "gen", "comp", "class", "use"};
 
         for (int i =0; i < 6; i++){
