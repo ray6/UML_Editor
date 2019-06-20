@@ -10,7 +10,7 @@ public class AssociationLine extends Line{
     }
 
     @Override
-    public void drawline(Graphics g) {
+    public void draw(Graphics g) {
         g.setColor(Color.black);
         g.drawLine(Start.getX(), Start.getY(), End.getX(), End.getY());
     }

@@ -7,10 +7,10 @@ import java.awt.*;
 public abstract class Line {
     protected Port Start;
     protected Port End;
+
     public Line(Port start, Port end){
         Start = start;
         End = end;
     }
-
-    public abstract void drawline(Graphics g);
+    public abstract void draw(Graphics g);
 }
