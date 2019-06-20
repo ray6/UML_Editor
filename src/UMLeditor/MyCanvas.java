@@ -5,11 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
 import BasicObject.BasicObject;
-import BasicObject.Composite;
+import BasicObject.Group;
 import Line.Line;
 import Mode.*;
 
 public class MyCanvas extends JPanel {
+    private static MyCanvas canvas;
     //List
     private Vector<BasicObject> ComponentList = new Vector<BasicObject>();
     private Vector<Line> LineList= new Vector<Line>();
@@ -24,10 +25,16 @@ public class MyCanvas extends JPanel {
     private tmpLine L = new tmpLine();
 
     //Constructor
-    public MyCanvas() {
+    private MyCanvas() {
         setBackground(Color.white);
         setPreferredSize(new Dimension(1000, 600));
         initMode();
+    }
+    public static MyCanvas getInstance(){
+        if (canvas == null){
+            canvas = new MyCanvas();
+        }
+        return canvas;
     }
     private void initMode(){
         /*
@@ -35,12 +42,12 @@ public class MyCanvas extends JPanel {
            0 : Select,  1 : Association Line, 2 : Generalization Line
            3 : Composition Line,  4 : class,  5 : Use Case,  6 : NULL
         */
-        Modes[0] = new SelectMode(this);
-        Modes[1] = new AssociationMode(this);
-        Modes[2] = new GeneralizationMode(this);
-        Modes[3] = new CompositionMode(this);
-        Modes[4] = new ClassMode(this);
-        Modes[5] = new UseCaseMode(this);
+        Modes[0] = new SelectMode();
+        Modes[1] = new AssociationMode();
+        Modes[2] = new GeneralizationMode();
+        Modes[3] = new CompositionMode();
+        Modes[4] = new ClassMode();
+        Modes[5] = new UseCaseMode();
 
         Modes[6] = null; // In begining there is no Listener.
     }
@@ -218,13 +225,13 @@ public class MyCanvas extends JPanel {
                 }
             }
         }
-        ComponentList.add(new Composite(min_X, min_Y, max_X-min_X, max_Y-min_Y, SelectList));
+        ComponentList.add(new Group(min_X, min_Y, max_X-min_X, max_Y-min_Y, SelectList));
         repaint();
     }
     public void UnGroup(){
         if (SelectList.size() == 1) {
             BasicObject obj = SelectList.remove(0);
-            obj.delete(ComponentList, "Composite");
+            obj.delete(ComponentList, "Group");
         }
         repaint();
     }
@@ -242,7 +249,7 @@ public class MyCanvas extends JPanel {
             object.draw(g);
         }
         for (Line line : LineList){
-            line.drawline(g);
+            line.draw(g);
         }
         R.draw(g);
         L.draw(g);
