@@ -13,19 +13,15 @@ public abstract class ConnectMode extends Mode {
     protected BasicObject start_obj, end_obj;
     protected Port start_port, end_port;
 
-    public ConnectMode(MyCanvas canvas){
-        super(canvas);
-    }
-
     @Override
     public void mousePressed(MouseEvent e) {
         X1 = e.getX();
         Y1 = e.getY();
-        start_obj = canvas.getComponent(X1, Y1);
+        start_obj = MyCanvas.getInstance().getComponent(X1, Y1);
         if (start_obj != null){
             start_port = start_obj.getConnectPort(X1, Y1);
             if (start_port != null){
-                canvas.setL_start(start_port.getX(), start_port.getY());
+                MyCanvas.getInstance().setL_start(start_port.getX(), start_port.getY());
                 Connecting = true;
             }
         }
@@ -35,14 +31,14 @@ public abstract class ConnectMode extends Mode {
     public void mouseReleased(MouseEvent e) {
         if (Connecting){
             Connecting = false;
-            canvas.clearL();
+            MyCanvas.getInstance().clearL();
             X2 = e.getX();
             Y2 = e.getY();
-            end_obj = canvas.getComponent(X2, Y2);
+            end_obj = MyCanvas.getInstance().getComponent(X2, Y2);
             if (end_obj != null && start_obj!=end_obj){
                 end_port = end_obj.getConnectPort(X2, Y2);
                 if (end_port != null){
-                    canvas.AddToLineList(NewConnect(start_port, end_port));
+                    MyCanvas.getInstance().AddToLineList(NewConnect(start_port, end_port));
                 }
             }
         }
@@ -51,7 +47,7 @@ public abstract class ConnectMode extends Mode {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (Connecting){
-            canvas.setL_end(e.getX(), e.getY());
+            MyCanvas.getInstance().setL_end(e.getX(), e.getY());
         }
     }
 

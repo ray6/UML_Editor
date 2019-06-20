@@ -5,13 +5,10 @@ import UMLeditor.MyCanvas;
 import java.awt.event.MouseEvent;
 import BasicObject.Class;
 
-public class ClassMode extends CreateMode {
-    public ClassMode(MyCanvas canvas){
-        super(canvas);
-    }
+public class ClassMode extends Mode {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        canvas.AddToComponentList(new Class(e.getX(), e.getY()));
+        MyCanvas.getInstance().AddToComponentList(new Class(e.getX(), e.getY()));
     }
 }

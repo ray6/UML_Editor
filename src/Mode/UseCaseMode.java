@@ -5,13 +5,9 @@ import UMLeditor.MyCanvas;
 
 import java.awt.event.MouseEvent;
 
-public class UseCaseMode extends CreateMode {
-    public UseCaseMode(MyCanvas canvas){
-        super(canvas);
-    }
-
+public class UseCaseMode extends Mode {
     @Override
     public void mousePressed(MouseEvent e) {
-        canvas.AddToComponentList(new UseCase(e.getX(), e.getY()));
+        MyCanvas.getInstance().AddToComponentList(new UseCase(e.getX(), e.getY()));
     }
 }
