@@ -2,15 +2,12 @@ package BasicObject;
 
 import java.awt.*;
 import java.util.Vector;
-import BasicObject.BasicObject;
-
-public class Composite extends BasicObject {
+public class Group extends BasicObject {
     Vector<BasicObject> MemberList = new Vector<BasicObject>();
-    public Composite(int x, int y, int w, int h, Vector<BasicObject> GroupList){
+    public Group(int x, int y, int w, int h, Vector<BasicObject> GroupList){
         super(x, y);
         W = w;
         H = h;
-        type = "Composite";
         for (BasicObject obj : GroupList){
             obj.setSelect(false);
             if (!obj.isGrouped()){
@@ -27,6 +24,7 @@ public class Composite extends BasicObject {
         }
     }
     public void delete(Vector<BasicObject> ComponentList, String type){
+        ComponentList.remove(this);
         for (BasicObject obj : MemberList){
             obj.setGrouped(false);
         }

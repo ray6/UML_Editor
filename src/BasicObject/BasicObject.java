@@ -10,7 +10,6 @@ public abstract class BasicObject  {
     protected int W;
     protected int H;
     protected String name;
-    protected String type;
 
     //Connection port
     protected Port North;
@@ -81,9 +80,7 @@ public abstract class BasicObject  {
 
     //delete self when type is fit
     public void delete(Vector<BasicObject> ComponentList, String type){
-        if (type == this.type){
-            ComponentList.remove(this);
-        }
+        // do nothing
     }
 
 

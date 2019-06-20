@@ -4,7 +4,7 @@ import BasicObject.BasicObject;
 
 import java.awt.*;
 
-public abstract class ShapeObject extends BasicObject {
+public abstract class Shape extends BasicObject {
     //Position
     protected int X;
     protected int Y;
@@ -21,7 +21,7 @@ public abstract class ShapeObject extends BasicObject {
     // Status
     protected boolean selected = false;
 
-    protected ShapeObject(int x, int y){
+    protected Shape(int x, int y){
         super(x, y);
         X = x;
         Y = y;
@@ -43,16 +43,7 @@ public abstract class ShapeObject extends BasicObject {
     public int getW(){ return W; }
     public int getH(){ return H; }
 
-    public void draw(Graphics g){
-        // draw port
-        if (selected){
-            setPort();
-            North.draw(g);
-            South.draw(g);
-            WEST.draw(g);
-            EAST.draw(g);
-        }
-    }
+    public abstract void draw(Graphics g);
 
 }
 

@@ -9,12 +9,8 @@ public class Class extends BasicObject {
         W = 80;
         H = 99;
         name = "Class";
-        type = "Class";
     }
 
-    public void setName(String n){
-        name = n;
-    }
     public void draw(Graphics g){
         g.setColor(Color.orange);
         g.fillRect(X, Y, W, H);
