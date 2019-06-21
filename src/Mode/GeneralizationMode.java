@@ -1,6 +1,6 @@
 package Mode;
 
-import BasicObject.Port;
+import Shape.Port;
 import Line.Line;
 import Line.GeneralizationLine;
 

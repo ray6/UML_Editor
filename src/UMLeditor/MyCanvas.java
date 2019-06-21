@@ -4,17 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
-import BasicObject.BasicObject;
-import BasicObject.Group;
+import Shape.Shape;
+import Shape.Group;
 import Line.Line;
 import Mode.*;
 
 public class MyCanvas extends JPanel {
     private static MyCanvas canvas;
     //List
-    private Vector<BasicObject> ComponentList = new Vector<BasicObject>();
+    private Vector<Shape> ComponentList = new Vector<Shape>();
     private Vector<Line> LineList= new Vector<Line>();
-    private Vector<BasicObject> SelectList = new Vector<BasicObject>();
+    private Vector<Shape> SelectList = new Vector<Shape>();
 
     //Mode
     private MouseAdapter[] Modes = new MouseAdapter[7];
@@ -53,7 +53,7 @@ public class MyCanvas extends JPanel {
     }
 
     //List Operator
-    public void AddToComponentList(BasicObject b){
+    public void AddToComponentList(Shape b){
         ComponentList.add(b);
         repaint();
     }
@@ -70,9 +70,9 @@ public class MyCanvas extends JPanel {
     public void selectComponent(int x, int y){
         int Xdiff = 0;
         int Ydiff = 0;
-        BasicObject lastobj = null;
+        Shape lastobj = null;
         if(!ComponentList.isEmpty()) {
-            for (BasicObject obj : ComponentList) {
+            for (Shape obj : ComponentList) {
                 Xdiff = x - obj.getX();
                 Ydiff = y - obj.getY();
                 obj.setSelect(false);
@@ -95,7 +95,7 @@ public class MyCanvas extends JPanel {
         int obj_x, obj_y, obj_w, obj_h;
         boolean LeftUpPoint, RightDownPoint, GoThrough;
         if (!ComponentList.isEmpty()){
-            for (BasicObject obj : ComponentList){
+            for (Shape obj : ComponentList){
                 obj.setSelect(false);
 
                 obj_x = obj.getX();
@@ -116,7 +116,7 @@ public class MyCanvas extends JPanel {
     //Selected Object Operator
     public void MoveSelectedComponent(int Delta_x, int Delta_y){
         if (!SelectList.isEmpty()){
-            for (BasicObject obj : SelectList){
+            for (Shape obj : SelectList){
                 if(!obj.isGrouped()){
                     obj.Move(Delta_x, Delta_y);
                 }
@@ -130,7 +130,7 @@ public class MyCanvas extends JPanel {
         int Xdiff = 0;
         int Ydiff = 0;
         if(!ComponentList.isEmpty()) {
-            for (BasicObject obj : ComponentList) {
+            for (Shape obj : ComponentList) {
                 if (obj.isSelected()){
                     Xdiff = x - obj.getX();
                     Ydiff = y - obj.getY();
@@ -150,12 +150,12 @@ public class MyCanvas extends JPanel {
     }
 
     //get Component of the position
-    public BasicObject getComponent(int x, int y){
+    public Shape getComponent(int x, int y){
         int Xdiff = 0;
         int Ydiff = 0;
-        BasicObject lastobj = null;
+        Shape lastobj = null;
         if(!ComponentList.isEmpty()) {
-            for (BasicObject obj : ComponentList) {
+            for (Shape obj : ComponentList) {
                 Xdiff = x - obj.getX();
                 Ydiff = y - obj.getY();
                 obj.setSelect(false);
@@ -209,7 +209,7 @@ public class MyCanvas extends JPanel {
     public void Group(){
         int min_X=Integer.MAX_VALUE, min_Y=Integer.MAX_VALUE, max_X=0, max_Y=0;
         if (SelectList.size()>1){
-            for (BasicObject obj : SelectList){
+            for (Shape obj : SelectList){
 
                 if (min_X > obj.getX()){
                     min_X = obj.getX();
@@ -230,7 +230,7 @@ public class MyCanvas extends JPanel {
     }
     public void UnGroup(){
         if (SelectList.size() == 1) {
-            BasicObject obj = SelectList.remove(0);
+            Shape obj = SelectList.remove(0);
             obj.delete(ComponentList, "Group");
         }
         repaint();
@@ -245,7 +245,7 @@ public class MyCanvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (BasicObject object : ComponentList){
+        for (Shape object : ComponentList){
             object.draw(g);
         }
         for (Line line : LineList){

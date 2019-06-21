@@ -3,7 +3,7 @@ package Mode;
 import UMLeditor.MyCanvas;
 
 import java.awt.event.MouseEvent;
-import BasicObject.Class;
+import Shape.Class;
 
 public class ClassMode extends Mode {
 

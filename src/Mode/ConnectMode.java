@@ -1,7 +1,7 @@
 package Mode;
 
-import BasicObject.BasicObject;
-import BasicObject.Port;
+import Shape.Shape;
+import Shape.Port;
 import Line.Line;
 import UMLeditor.MyCanvas;
 
@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 public abstract class ConnectMode extends Mode {
     protected boolean Connecting;
     protected int X1, Y1, X2, Y2;
-    protected BasicObject start_obj, end_obj;
+    protected Shape start_obj, end_obj;
     protected Port start_port, end_port;
 
     @Override

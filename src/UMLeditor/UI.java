@@ -1,7 +1,5 @@
 package UMLeditor;
 
-import BasicObject.Class;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

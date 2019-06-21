@@ -1,6 +1,6 @@
 package Line;
 
-import BasicObject.Port;
+import Shape.Port;
 
 import java.awt.*;
 

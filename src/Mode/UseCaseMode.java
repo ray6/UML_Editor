@@ -1,6 +1,6 @@
 package Mode;
 
-import BasicObject.UseCase;
+import Shape.UseCase;
 import UMLeditor.MyCanvas;
 
 import java.awt.event.MouseEvent;

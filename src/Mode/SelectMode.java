@@ -1,6 +1,4 @@
 package Mode;
-
-
 import UMLeditor.MyCanvas;
 
 import java.awt.event.MouseEvent;
