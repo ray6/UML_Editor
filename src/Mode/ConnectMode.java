@@ -51,5 +51,8 @@ public abstract class ConnectMode extends Mode {
         }
     }
 
+
+
+
     protected abstract Line NewConnect(Port start, Port end);
 }

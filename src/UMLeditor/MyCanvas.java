@@ -2,7 +2,6 @@ package UMLeditor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Vector;
 import Shape.Shape;
 import Shape.Group;
@@ -17,8 +16,7 @@ public class MyCanvas extends JPanel {
     private Vector<Shape> SelectList = new Vector<Shape>();
 
     //Mode
-    private MouseAdapter[] Modes = new MouseAdapter[7];
-    private int currentMode = 6; //Set to initial Mode : null
+    private Mode mode = null;
 
     //Assistant
     private selectRec R = new selectRec();
@@ -28,28 +26,13 @@ public class MyCanvas extends JPanel {
     private MyCanvas() {
         setBackground(Color.white);
         setPreferredSize(new Dimension(1000, 600));
-        initMode();
+
     }
     public static MyCanvas getInstance(){
         if (canvas == null){
             canvas = new MyCanvas();
         }
         return canvas;
-    }
-    private void initMode(){
-        /*
-        Mode List :
-           0 : Select,  1 : Association Line, 2 : Generalization Line
-           3 : Composition Line,  4 : class,  5 : Use Case,  6 : NULL
-        */
-        Modes[0] = new SelectMode();
-        Modes[1] = new AssociationMode();
-        Modes[2] = new GeneralizationMode();
-        Modes[3] = new CompositionMode();
-        Modes[4] = new ClassMode();
-        Modes[5] = new UseCaseMode();
-
-        Modes[6] = null; // In begining there is no Listener.
     }
 
     //List Operator
@@ -143,7 +126,7 @@ public class MyCanvas extends JPanel {
         return false;
     }
     public boolean isSelecting(){
-        if (currentMode == 0 && !SelectList.isEmpty()){
+        if (!SelectList.isEmpty()){
             return true;
         }
         else return false;
@@ -195,13 +178,13 @@ public class MyCanvas extends JPanel {
     }
 
     //ModeSwitcher
-    public void ModeSwitcher(int mode){
+    public void ModeSwitcher(Mode m){
         SelectList.removeAllElements();
-        removeMouseListener(Modes[currentMode]);
-        removeMouseMotionListener(Modes[currentMode]);
-        addMouseListener(Modes[mode]);
-        addMouseMotionListener(Modes[mode]);
-        currentMode = mode;
+        removeMouseListener(mode);
+        removeMouseMotionListener(mode);
+        mode = m;
+        addMouseListener(mode);
+        addMouseMotionListener(mode);
         repaint();
     }
 
