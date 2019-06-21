@@ -16,12 +16,8 @@ public abstract class BasicObject extends Shape {
     protected Port WEST;
     protected Port EAST;
 
-    // Status
-    protected boolean selected = false;
-    protected boolean grouped = false;
 
     protected BasicObject(int x, int y){
-//        super(x, y);
         X = x;
         Y = y;
 
@@ -36,8 +32,8 @@ public abstract class BasicObject extends Shape {
     private void setPort(){
         North.setXY(X+W/2, Y);
         South.setXY(X+W/2, Y+H);
-        EAST.setXY(X, Y+H/2);
-        WEST.setXY(X+W, Y+H/2);
+        WEST.setXY(X, Y+H/2);
+        EAST.setXY(X+W, Y+H/2);
     }
     public Port getConnectPort(int x, int y){
         Port[][] Position = {{North, WEST},{EAST, South}};
@@ -63,14 +59,6 @@ public abstract class BasicObject extends Shape {
     }
     public void setX(int x){ X = x; }
     public void setY(int y){ Y = y; }
-
-    //Select status
-    public void setSelect(boolean b){ selected = b; }
-    public boolean isSelected(){ return selected; }
-
-    //Group status
-    public void setGrouped(boolean b){ grouped = b; }
-    public boolean isGrouped(){ return grouped; }
 
     //set Name
     public void setName(String name){
